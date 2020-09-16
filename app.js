@@ -2,7 +2,6 @@ const express = require('express');
 const app=express();
 const port=process.env.PORT || 3000;
 
-const c_Account = require('./controller/account');
 const c_Dompet = require('./controller/dompet');
 const c_Kategori = require('./controller/kategori');
 const c_Transaksi = require('./controller/transaksi');
