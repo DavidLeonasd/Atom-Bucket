@@ -8,13 +8,6 @@ const c_Kategori = require('./controller/kategori');
 const c_Transaksi = require('./controller/transaksi');
 const bodyParser = require('body-parser')
 
-app.post('/', function (req, res) {
-    console.log(req.params);
-    if(req.params.qq==null)res.send("qq not found");
-    else res.send('Atom-Pocket')
-})
-
-app.use('/account', c_Account);
 app.use('/dompet', c_Dompet);
 app.use('/kategori', c_Kategori);
 app.use('/transaksi', c_Transaksi);
