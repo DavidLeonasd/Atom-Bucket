@@ -28,6 +28,18 @@ router.post('/update', function (req, resp) {
     })
 })
 
+router.post('/updatestatus', function (req, resp) {
+    if(!req.query.id || !req.query.isactive){
+        utils.expressSendErrorResponse(resp, utils.HTTP_RESPONSE_CODE_422_UNPROCESSABLE_ENTITY, 'id and isactive is mandatory');
+        return;
+    }
+    var id=req.query.id, isActive=req.query.isactive;
+    m_kategori.updateStatus(id, isActive,(err, res)=>{
+        if(err)utils.expressSendErrorResponse(resp, utils.HTTP_RESPONSE_CODE_500_INTERNAL_SERVER_ERROR, 'failed to execute query to database')
+        else utils.expressSendResponse(resp, utils.HTTP_RESPONSE_CODE_200_OK, 'success');
+    })
+})
+
 router.post('/get', function (req, resp) {
     var id=req.query.id;
     m_dompet.read(id,(err, res)=>{

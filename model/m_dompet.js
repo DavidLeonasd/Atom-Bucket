@@ -22,6 +22,16 @@ module.exports.update=function(id, nama, referensi, deskripsi, callback){
     });
 }
 
+module.exports.updateStatus=function(id, isActive, callback){
+    var query=`UPDATE ${table_name} SET isactive='${isActive}' WHERE id=${id}`;
+    getClient((err, client, release)=>{
+        client.query(query, (err, res) => {
+            callback(err, res);
+          })
+        release();
+    });
+}
+
 module.exports.read=function(id, callback){
     var query=`SELECT * FROM ${table_name}`;
     if(id)query+=` WHERE id=${id}`;
