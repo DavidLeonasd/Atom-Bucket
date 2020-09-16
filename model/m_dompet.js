@@ -13,7 +13,7 @@ module.exports.create=function(nama, referensi, deskripsi, callback){
 }
 
 module.exports.update=function(id, nama, referensi, deskripsi, callback){
-    var query=`UPDATE ${table_name} SET name='${nama}', referensi='${referensi}', deskripsi='${deskripsi}' WHERE id=${id}`;
+    var query=`UPDATE ${table_name} SET nama='${nama}', referensi='${referensi}', deskripsi='${deskripsi}' WHERE id=${id}`;
     getClient((err, client, release)=>{
         client.query(query, (err, res) => {
             callback(err, res);
