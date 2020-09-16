@@ -39,9 +39,8 @@ router.post('/create', function (req, resp) {
 
 router.post('/get', function (req, resp) {
     var id=req.query.id;
-    m_transaksi.read(id,(err, res)=>{
+    m_transaksi.read(id, null, null,(err, res)=>{
         if(err)utils.expressSendErrorResponse(resp, utils.HTTP_RESPONSE_CODE_500_INTERNAL_SERVER_ERROR, 'failed to execute query to database')
-        else if(res.rows.length<=0)utils.expressSendErrorResponse(resp, utils.HTTP_RESPONSE_CODE_404_NOT_FOUND, 'No Data Found', );
         else utils.expressSendResponseAndData(resp, utils.HTTP_RESPONSE_CODE_200_OK, 'success', res.rows);
     })
 })
