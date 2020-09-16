@@ -10,6 +10,7 @@ module.exports.expressSendResponseAndData = function(res, StatusCode, Message, D
     res.status(StatusCode).send(respMessage)
 }
 
+module.exports.HTTP_RESPONSE_CODE_404_NOT_FOUND=404;
 module.exports.HTTP_RESPONSE_CODE_422_UNPROCESSABLE_ENTITY=422;
 module.exports.HTTP_RESPONSE_CODE_500_INTERNAL_SERVER_ERROR=500;
 module.exports.expressSendErrorResponse = function(res, StatusCode, Message){
