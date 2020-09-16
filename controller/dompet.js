@@ -17,7 +17,10 @@ router.get('/create', function (req, resp) {
 })
 
 router.get('/update', function (req, resp) {
-    if(!req.query.id || !req.query.nama)
+    if(!req.query.id || !req.query.nama){
+        utils.expressSendErrorResponse(resp, utils.HTTP_RESPONSE_CODE_422_UNPROCESSABLE_ENTITY, 'id and nama is mandatory');
+        return;
+    }
     var id=req.query.id, nama=req.query.nama || '', referensi=req.query.referensi || '', deskripsi=req.query.deskripsi || '';
     m_dompet.update(id, nama, referensi, deskripsi,(err, res)=>{
         if(err)utils.expressSendErrorResponse(resp, utils.HTTP_RESPONSE_CODE_500_INTERNAL_SERVER_ERROR, 'failed to execute query to database')
