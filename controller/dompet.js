@@ -4,7 +4,7 @@ const utils=require('../utils');
 const router=express.Router();
 
 
-router.get('/create', function (req, resp) {
+router.post('/create', function (req, resp) {
     if(!req.query.nama) {
         utils.expressSendErrorResponse(resp, utils.HTTP_RESPONSE_CODE_422_UNPROCESSABLE_ENTITY, 'nama is mandatory');
         return;
@@ -16,7 +16,7 @@ router.get('/create', function (req, resp) {
     })
 })
 
-router.get('/update', function (req, resp) {
+router.post('/update', function (req, resp) {
     if(!req.query.id || !req.query.nama){
         utils.expressSendErrorResponse(resp, utils.HTTP_RESPONSE_CODE_422_UNPROCESSABLE_ENTITY, 'id and nama is mandatory');
         return;
@@ -28,7 +28,7 @@ router.get('/update', function (req, resp) {
     })
 })
 
-router.get('/get', function (req, resp) {
+router.post('/get', function (req, resp) {
     var id=req.query.id;
     m_dompet.read(id,(err, res)=>{
         if(err)utils.expressSendErrorResponse(resp, utils.HTTP_RESPONSE_CODE_500_INTERNAL_SERVER_ERROR, 'failed to execute query to database')
