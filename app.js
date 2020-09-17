@@ -13,6 +13,10 @@ app.use('/kategori', c_Kategori);
 app.use('/transaksi', c_Transaksi);
 app.use('/laporan', c_Laporan);
 
+app.all('/', function (req, resp) {
+    resp.send('Atom-Pocket');
+});
+
 testConnection((err, res)=>{
     if(err){
         console.error(`Atom-Pocket testing connection to database failed`);
