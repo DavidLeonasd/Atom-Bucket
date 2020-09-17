@@ -1,12 +1,12 @@
 const express = require('express');
+const config = require('./config.json')
 const app=express();
-const port=process.env.PORT || 3000;
+const port=process.env.PORT || config.HOST_Port;
 const {testConnection} = require('./db/connection');
 const c_Dompet = require('./controller/dompet');
 const c_Kategori = require('./controller/kategori');
 const c_Transaksi = require('./controller/transaksi');
 const c_Laporan = require('./controller/laporan');
-const bodyParser = require('body-parser')
 
 app.use('/dompet', c_Dompet);
 app.use('/kategori', c_Kategori);

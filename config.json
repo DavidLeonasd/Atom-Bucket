@@ -1,0 +1,9 @@
+{
+    "HOST_Port": 3000,
+
+    "DB_User": "postgres",
+    "DB_Host": "localhost",
+    "DB_Database_Name": "atom_pocket",
+    "DB_User_Password": "postgres",
+    "DB_Port": 5432
+}
