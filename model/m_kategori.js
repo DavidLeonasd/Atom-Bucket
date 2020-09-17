@@ -40,7 +40,7 @@ module.exports.read=function(id, isActive, keyWord, orderByColumn, callback){
     var query=`SELECT * FROM ${table_name} WHERE 1=1`;
     if(id)query+=` AND id=${id}`;
     if(isActive)query+=` AND isactive=${isActive}`;
-    if(keyWord)query+=` AND (nama ilike '${keyWord}' OR deskripsi ilike'${keyWord}')`;
+    if(keyWord)query+=` AND (nama ilike '%${keyWord}%' OR deskripsi ilike'%${keyWord}%')`;
     if(orderByColumn && table_columns.includes(orderByColumn))query+=` ORDER BY ${orderByColumn}`;
     getClient((err, client, release)=>{
         client.query(query, (err, res) => {
