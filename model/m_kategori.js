@@ -32,8 +32,8 @@ module.exports.updateStatus=function(id, isActive, callback){
 }
 
 module.exports.read=function(id, callback){
-    var query=`SELECT * FROM ${table_name}`;
-    if(id)query+=` WHERE id=${id}`;
+    var query=`SELECT * FROM ${table_name} WHERE isactive=true`;
+    if(id)query+=` AND id=${id}`;
     getClient((err, client, release)=>{
         client.query(query, (err, res) => {
             callback(err, res);
