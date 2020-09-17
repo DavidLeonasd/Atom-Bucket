@@ -1,15 +1,21 @@
 const { Pool } = require('pg')
+const config = require('../config.json')
 
 const pg_connection_detail={
-    user: 'postgres',
-    host: 'localhost',
-    database: 'personaldiary',
-    password: 'postgres',
-    port: 5432,
+    user: config.DB_User,
+    host: config.DB_Host,
+    database: config.DB_Database_Name,
+    password: config.DB_User_Password,
+    port: config.DB_Port,
 }
 
 const pool = new Pool(pg_connection_detail)
 module.exports = {
+  testConnection: (callback)=>{
+    return pool.query(`select 1`, (err, res) => {
+      callback(err, res)
+    })
+  },
   query: (text, params, callback) => {
     const start = Date.now()
     return pool.query(text, params, (err, res) => {
@@ -28,9 +34,9 @@ module.exports = {
       }
       // set a timeout of 5 seconds, after which we will log this client's last query
       const timeout = setTimeout(() => {
-        console.error('A client has been checked out for more than 5 seconds!')
+        console.error('A client has been checked out for more than 10 seconds!')
         console.error(`The last executed query on this client was: ${client.lastQuery}`)
-      }, 5000)
+      }, 10000)
       const release = (err) => {
         // call the actual 'done' method, returning this client to the pool
         done(err)
