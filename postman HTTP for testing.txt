@@ -1,0 +1,100 @@
+ganti "localhost" dan "port" sesuai dengan environment yang digunakan 
+All use POST HTTP method
+
+//Dompet
+//Dompet Create
+http://localhost:3000/dompet/create?nama=Dompet Utama&referensi=52700072502&deskripsi=Bank BCA
+http://localhost:3000/dompet/create?nama=Dompet Tagihan&referensi=52700072503&deskripsi=Bank BCA
+http://localhost:3000/dompet/create?nama=Dompet Cadangan&referensi=52700072504&deskripsi=Bank Permata
+
+//Dompet Update
+http://localhost:3000/dompet/update?id=2&nama=Dompet Tagihan&referensi=52700072502&deskripsi=Bank BCA, update test
+http://localhost:3000/dompet/update?id=3&nama=Dompet test&referensi=52700072502&deskripsi=Bank BCA
+
+//Dompet Update status
+http://localhost:3000/dompet/updatestatus?id=2&isactive=false
+
+//Dompet Get - all
+http://localhost:3000/dompet/get
+
+//Dompet Get - specific ID
+http://localhost:3000/dompet/get?id=1
+
+//Dompet Get - inactive record
+http://localhost:3000/dompet/get?isactive=false
+
+//Dompet Get - search keyword
+http://localhost:3000/dompet/get?keyword=utama
+
+//Dompet Get - ordered by column
+http://localhost:3000/dompet/get?orderbycolumn=nama
+http://localhost:3000/dompet/get?orderbycolumn=referensi
+http://localhost:3000/dompet/get?orderbycolumn=deskripsi
+
+
+
+//Kategori
+//Kategori Create
+http://localhost:3000/kategori/create?nama=Keluar&deskripsi=kategori untuk uang keluar
+http://localhost:3000/kategori/create?nama=Masuk&deskripsi=kategori untuk uang masuk
+http://localhost:3000/kategori/create?nama=lain-lain
+
+//Kategori Update
+http://localhost:3000/kategori/update?id=3&nama=lain-lain updated&deskripsi=update test
+
+//Kategori Update Status
+http://localhost:3000/kategori/updatestatus?id=3&isactive=false
+
+//Kategori Get - all
+http://localhost:3000/kategori/get
+
+//Kategori Get - specific ID
+http://localhost:3000/kategori/get?id=1
+
+//Kategori Get - inactive record
+http://localhost:3000/kategori/get?isactive=false
+
+//Kategori Get - search keyword
+http://localhost:3000/kategori/get?keyword=utama
+
+//Kategori Get - ordered by column
+http://localhost:3000/kategori/get?orderbycolumn=nama
+http://localhost:3000/kategori/get?orderbycolumn=deskripsi
+
+
+//Transaksi
+//Transaksi Create
+	format tanggal DD-MM-YYYY
+http://localhost:3000/transaksi/create?deskripsi=transaksi uang masuk&tanggal=01-10-2020&dompet_id=1&kategori_id=2&istransaksimasuk=true&nilai=100000
+http://localhost:3000/transaksi/create?deskripsi=transaksi uang masuk&tanggal=02-10-2020&dompet_id=1&kategori_id=2&istransaksimasuk=true&nilai=200000
+http://localhost:3000/transaksi/create?deskripsi=transaksi uang keluar&tanggal=01-10-2020&dompet_id=1&kategori_id=1&istransaksimasuk=false&nilai=30000
+
+//Transaksi Get - all
+http://localhost:3000/transaksi/get?
+
+//Transaksi Get - search keyword (dompet name, kategori name, transaksi description, tanggal)
+http://localhost:3000/transaksi/get?keyword=masuk
+http://localhost:3000/transaksi/get?keyword=keluar
+http://localhost:3000/transaksi/get?keyword=01-10-2020
+
+
+//Laporan - all
+http://localhost:3000/laporan/transaksi
+
+//Laporan - before date
+http://localhost:3000/laporan/transaksi?dateto=01-10-2020
+
+//Laporan - after date
+http://localhost:3000/laporan/transaksi?datefrom=01-10-2020
+
+//Laporan - between date
+http://localhost:3000/laporan/transaksi?datefrom=01-10-2020&dateto=01-10-2020
+
+//Laporan - specific dompet
+http://localhost:3000/laporan/transaksi?dompet_id=1
+
+//Laporan - specific kategori
+http://localhost:3000/laporan/transaksi?kategori_id=1
+
+//Laporan - between date and specific dompet
+http://localhost:3000/laporan/transaksi?datefrom=01-10-2020&dateto=01-10-2020&?dompet_id=1
