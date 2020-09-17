@@ -7,7 +7,7 @@ const c_Dompet = require('./controller/dompet');
 const c_Kategori = require('./controller/kategori');
 const c_Transaksi = require('./controller/transaksi');
 const c_Laporan = require('./controller/laporan');
-
+const {log}=require('./logger');
 app.use('/dompet', c_Dompet);
 app.use('/kategori', c_Kategori);
 app.use('/transaksi', c_Transaksi);
@@ -24,5 +24,5 @@ testConnection((err, res)=>{
         return;
     }
     app.listen(port)
-    console.log("Atom-Pocket listening on port : "+port);
+    log.info("Atom-Pocket listening on port : "+port)
 })
