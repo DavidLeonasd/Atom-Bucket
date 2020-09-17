@@ -41,9 +41,11 @@ router.post('/get', function (req, resp) {
     var id=req.query.id;
     var dateFrom=req.query.datefrom;
     var dateTo=req.query.dateto;
+    var isTransaksiMasuk=req.query.istransaksimasuk;
     var keyword=req.query.keyword;
     var orderByColumn=req.query.orderbycolumn;
-    m_transaksi.read(id, dateFrom, dateTo, keyword, orderByColumn,(err, res)=>{
+    var kategori_id=req.query.kategori_id, dompet_id=req.query.dompet_id;
+    m_transaksi.read(id, dateFrom, dateTo, isTransaksiMasuk,kategori_id, dompet_id, keyword, orderByColumn,(err, res)=>{
         if(err)utils.expressSendErrorResponse(resp, utils.HTTP_RESPONSE_CODE_500_INTERNAL_SERVER_ERROR, 'failed to execute query to database')
         else utils.expressSendResponseAndData(resp, utils.HTTP_RESPONSE_CODE_200_OK, 'success', res.rows);
     })

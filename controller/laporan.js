@@ -5,12 +5,12 @@ const utils=require('../utils');
 
 router.post('/transaksi', function (req, resp) {
     var responseContent={};
-    var dateFrom=req.query.datefrom, dateTo=req.query.dateto, kategori_id=req.query.kategori_id, dompet_id=req.query.dompet_id
-    if(!dateFrom || !dateTo){
-        utils.expressSendErrorResponse(resp, utils.HTTP_RESPONSE_CODE_422_UNPROCESSABLE_ENTITY, 'datefrom and dateto parameter is mandatory');
-        return;
-    }
-    m_transaksi.read(null, dateFrom, dateTo, (err, res)=>{
+    var dateFrom=req.query.datefrom, dateTo=req.query.dateto, kategori_id=req.query.kategori_id, dompet_id=req.query.dompet_id, isTransaksiMasuk=req.query.istransaksimasuk
+    // if(!dateFrom || !dateTo){
+    //     utils.expressSendErrorResponse(resp, utils.HTTP_RESPONSE_CODE_422_UNPROCESSABLE_ENTITY, 'datefrom and dateto parameter is mandatory');
+    //     return;
+    // }
+    m_transaksi.read(null, dateFrom, dateTo, isTransaksiMasuk, kategori_id, dompet_id, null, 'tanggal', (err, res)=>{
         if(err){
             utils.expressSendErrorResponse(resp, utils.HTTP_RESPONSE_CODE_500_INTERNAL_SERVER_ERROR, 'failed to execute query to database');
             return;
