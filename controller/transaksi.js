@@ -8,7 +8,7 @@ router.post('/create', function (req, resp) {
         utils.expressSendErrorResponse(resp, utils.HTTP_RESPONSE_CODE_422_UNPROCESSABLE_ENTITY, 'tanggal parameter invlaid');
         return;
     }
-    if(!req.query.nilai || req.query.nilai<0){
+    if(!req.query.nilai || isNaN(req.query.nilai ) || req.query.nilai<0){
         utils.expressSendErrorResponse(resp, utils.HTTP_RESPONSE_CODE_422_UNPROCESSABLE_ENTITY, 'nilai parameter invlaid');
         return;
     }
