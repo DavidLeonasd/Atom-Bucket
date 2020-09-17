@@ -1,4 +1,6 @@
 const {getClient} = require('../db/connection');
+const utils=require('../utils');
+
 const table_name='transaksi';
 const table_columns=[',id','kode','deksipsi','tanggal','nilai','dompet_id','kategori_id','istransaksimasuk'];
 const transaksi_kode_prefix_in='WIN';
@@ -13,6 +15,7 @@ module.exports.create=function(deskripsi, tanggal, nilai, dompet_id, kategori_id
     getClient((err, client, release)=>{
         client.query(queryKode, (err, res) => {
             if(err){
+                if(err)utils.logDBQueryError(query, new Error(err.message))
                 callback(err, res);
                 return;
             }
@@ -22,6 +25,7 @@ module.exports.create=function(deskripsi, tanggal, nilai, dompet_id, kategori_id
             if(res.rows[0])kode=res.rows[0].kode;
             var queryInsert=`INSERT INTO transaksi (kode, deskripsi, tanggal, nilai, dompet_id, kategori_id, istransaksimasuk) values('${kode_prefix}${kode}', '${deskripsi}', to_date('${tanggal}','DD-MM-YYYY'), ${nilai}, ${dompet_id}, ${kategori_id}, ${istransaksimasuk})`;
             client.query(queryInsert, (err, res) => {
+                if(err)utils.logDBQueryError(query, new Error(err.message))
                 callback(err, res);
             })
         })
@@ -33,6 +37,7 @@ module.exports.update=function(id, kode, deskripsi, tanggal, nilai, dompet_id, k
     var query=`UPDATE transaksi SET kode='${kode}', deskripsi='${deskripsi}', tanggal=to_date('${tanggal}','DD-MM-YYYY'), nilai=${nilai}, dompet_id=${dompet_id}, kategori_id=${kategori_id}, istransaksimasuk=${istransaksimasuk} WHERE id=${id}`;
     getClient((err, client, release)=>{
         client.query(query, (err, res) => {
+            if(err)utils.logDBQueryError(query, new Error(err.message))
             callback(err, res);
         })
         release();
@@ -49,6 +54,7 @@ module.exports.read=function(id, dateFrom, dateTo, keyWord, orderByColumn, callb
     if(orderByColumn && allowedOrderByColumn.includes(orderByColumn))query+=` ORDER BY ${orderByColumn}`;
     getClient((err, client, release)=>{
         client.query(query, (err, res) => {
+            if(err)utils.logDBQueryError(query, new Error(err.message))
             callback(err, res);
         })
         release();
@@ -62,6 +68,7 @@ module.exports.readSumOfTransaction=function(dateFrom, dateTo, kategori_id, domp
     query+=` GROUP BY istransaksimasuk`;
     getClient((err, client, release)=>{
         client.query(query, (err, res) => {
+            if(err)utils.logDBQueryError(query, new Error(err.message))
             callback(err, res);
         })
         release();

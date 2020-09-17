@@ -1,5 +1,9 @@
 const moment=require('moment');
+const {log}=require('./logger');
 
+module.exports.logDBQueryError = function(query, error){
+    log.error(query,'\n',error)
+}
 module.exports.checkDateIsValidWithFormat = function(dateString, patternString){
     return moment(dateString,patternString,true).isValid();
 }
