@@ -57,9 +57,16 @@ router.post('/updatestatus', function (req, resp) {
 })
 
 router.post('/get', function (req, resp) {
-    var id;
-    if(req.query.id && req.query.id>0)id=req.query.id;
-    m_dompet.read(id,(err, res)=>{
+    var id, isactive, keyword;
+    if(req.query.isactive && (req.query.isactive!='true' && req.query.isactive!='false')){
+        utils.expressSendErrorResponse(resp, utils.HTTP_RESPONSE_CODE_422_UNPROCESSABLE_ENTITY, `isactive must be 'true' or 'false'`);
+        return;
+    }
+    id=req.query.id;
+    isactive=req.query.isactive;
+    keyword=req.query.keyword;
+    orderByColumn =req.query.orderbycolumn;
+    m_dompet.read(id, isactive, keyword, orderByColumn, (err, res)=>{
         if(err)utils.expressSendErrorResponse(resp, utils.HTTP_RESPONSE_CODE_500_INTERNAL_SERVER_ERROR, 'failed to execute query to database')
         else utils.expressSendResponseAndData(resp, utils.HTTP_RESPONSE_CODE_200_OK, 'success', res.rows);
     })

@@ -1,6 +1,6 @@
 const {getClient} = require('../db/connection');
 const table_name='transaksi';
-const table_columns=['kode','deksipsi','tanggal','nilai','dompet_id','kategori_id','istransaksimasuk'];
+const table_columns=[',id','kode','deksipsi','tanggal','nilai','dompet_id','kategori_id','istransaksimasuk'];
 const transaksi_kode_prefix_in='WIN';
 const transaksi_kode_prefix_out='WOUT';
 const transaksi_kode_starting_index_of_number_in=transaksi_kode_prefix_in.length+1;
@@ -39,11 +39,14 @@ module.exports.update=function(id, kode, deskripsi, tanggal, nilai, dompet_id, k
     });
 }
 
-module.exports.read=function(id, dateFrom, dateTo, callback){
+module.exports.read=function(id, dateFrom, dateTo, keyWord, orderByColumn, callback){
+    const allowedOrderByColumn=['id','kode','deksipsi','tanggal','nilai','dompet_id','kategori_id','istransaksimasuk','dompet_nama','kategori_nama'];
     var query=`SELECT kategori.*, TO_CHAR(tanggal, 'DD-MM-YYYY') AS tanggal, dompet.nama AS dompet_nama, kategori.nama AS kategori_nama FROM ${table_name} JOIN dompet ON dompet.id=transaksi.dompet_id JOIN kategori ON kategori.id=transaksi.kategori_id WHERE 1=1`;
-    if(id)query+=` AND id=${id}`;
+    if(id)query+=` AND kategori.id=${id}`;
     if(dateFrom)query+=` AND tanggal>=to_date('${dateFrom}','DD-MM-YYYY')`;
     if(dateTo)query+=` AND tanggal<=to_date('${dateTo}','DD-MM-YYYY')`;
+    if(keyWord)query+=`AND (transaksi.kode ilike '${keyWord}' OR transaksi.deskripsi ilike '${keyWord}' OR dompet.nama ilike '${keyWord}' OR kategori.nama ilike '${keyWord}' OR TO_CHAR(tanggal, 'DD-MM-YYYY') ilike '${keyWord}')`;
+    if(orderByColumn && allowedOrderByColumn.includes(orderByColumn))query+=` ORDER BY ${orderByColumn}`;
     getClient((err, client, release)=>{
         client.query(query, (err, res) => {
             callback(err, res);
